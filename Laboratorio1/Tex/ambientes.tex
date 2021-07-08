@@ -1,0 +1,23 @@
+%---------------------------
+
+\newtcolorbox{cajita}[1][]{
+	 #1
+}
+
+\newenvironment{sol}
+{\renewcommand\qedsymbol{$\square$}\begin{proof}[\textbf{Solución.}]}
+	{\end{proof}}
+
+\newenvironment{dem}
+{\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[\textbf{Demostración.}]}
+	{\end{proof}}
+
+\newtheorem{problema}{Problema}
+\newtheorem{definicion}{Definición}
+\newtheorem{ejemplo}{Ejemplo}
+\newtheorem{teorema}{Teorema}
+\newtheorem{corolario}{Corolario}[teorema]
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{prop}{Proposición}
+\newtheorem*{nota}{\textbf{NOTA}}
+\renewcommand\qedsymbol{$\blacksquare$}

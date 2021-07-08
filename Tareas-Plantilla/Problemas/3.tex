@@ -1,0 +1,32 @@
+\section{Problema 3}
+\begin{tcolorbox}[colback=blue!15,colframe=blue!1!blue,title=Definición 4.28 (Funciones monótonas) de \cite{rudin1976principles}]
+	Let $f$ be real on $(a, b)$. Then $f$ is said to be monotonically increasing on $(a, b)$ if $a<x<y<b$ implies $f(x) \leq f(y)$. If the last inequality is reversed, we obtain the definition of a monotonically decreasing function. The class of monotonic functions consists of both the increasing and the decreasing functions.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!15,colframe=gray!1!gray,title=Teorema 1 (Fue dejado como tarea demostrarlo)]
+	Sea $f$ continua e inyectiva en $I=[a,b]$. Entonces es estrictamente monótona en $I$. 
+	\begin{proof}
+		Vamos a tomar como referencia la deducción de \cite{walker2012examples}. Entonces, por hipótesis tenemos que $f$ es continua e inyectiva. Como es inyectiva, se sabe que $f(a)\neq f(b)$. Entonces, ahora tenemos dos casos: 
+		\begin{enumerate}
+			\item $f(a)<f(b)$ entonces $f$ es estrictamente creciente. Entonces tenemos que $f(a)<f(b)$. Entonces, consideremos el teorema del valor medio del Bolzano, tal que $f(a)<f(x)<f(b)$ para todo $a<x<b$. $\implies y\in [x,b]\ni f(y)=f(a)$. Pero entonces, eso implicaría que que no es inyectiva ($\to \gets$).  De la misma forma, $f(x)\geq f(b)$ no sería posible. Digamos $x<y\in I$, tenemos que $f(x)\geq f(y)$, entonces por el teorema del valor medio de Bolzano existe un $z\in [a,x]$ tal que $f(z)=f(y)$. Por lo tanto, $f$ no sería inyectiva $(\to\gets)$. 
+			\item $f(a)>f(b)$ entonces $f$ es estrictamente decreciente. La prueba es la misma al inciso anterior, pero con los signos cambiados. 
+		\end{enumerate}
+	$\therefore\ x<y \in I $ y entonces tenemos $f(x)<f(y)$. Además tenemos $f(x)>(y)$; que son estrictamente creciente y  decreciente respectivamente.   
+	\end{proof}
+\end{tcolorbox}
+
+
+Pruebe que si $f:[a, b] \rightarrow[a, b]$ es un homeomorfismo, entonces $a$ y $b$ son puntos fijos de $f$, o $f(a)=b$ y $f(b)=a$.
+\begin{proof}
+	Conocemos $f:[a, b] \rightarrow[a, b]$ es un homeomorfismo si y solo si: (1) Es biyectiva. (2) Función continua. (3) La inversa de la función es continua. Por el teorema 1, las condiciones se cumplen trivialmente: 
+	\begin{enumerate}
+		\item Si $f$ es creciente. Entonces: 
+		$$f([a,b])=[f(a),f(b)]=[a,b].$$
+		$a$ y $b$ son puntos fijos de $f$. Es decir, por la definición de punto fijo. $$ f(a)=a \qquad \text{ y } \qquad f(b)=b.$$
+		\item Si $f$ es decreciente. Entonces: 
+		$$f([a,b])=[f(b),f(a)]=[a,b].$$
+		Tal que: 
+		 $$f(a)=b\qquad  \text{ y } \qquad f(b)=a.$$ 
+	\end{enumerate}
+\end{proof}
+

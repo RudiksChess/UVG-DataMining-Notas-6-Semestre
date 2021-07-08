@@ -1,0 +1,35 @@
+\section{Problema 1}
+\begin{tcolorbox}[colback=blue!15,colframe=blue!1!blue,title=Definición del valor intermedio]
+Si $f(a)<c<f(b)$, entonces $f(x)=c$ para algún $x$ entre $a$ y $b$. 
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[colback=gray!15,colframe=gray!1!gray,title=Teorema 1 (Demostrado en clase)]
+La imagen de un compacto bajo un mapeo continuo es compacto.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!15,colframe=blue!1!blue,title=Definición de punto límite de \cite{rudin1976principles}]
+	Si $p$ es un punto límite de un conjunto $E$, entonces cada vecindad de $p$ contiene infinitos puntos contables de $E$. 
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!15,colframe=gray!1!gray,title=Caracterización secuencial de compacto (Demostrado en clase)]
+	Un subconjunto $K$ de $\mathbb{R}$ es compacto si y solo si cada sucesión en $K$ tiene una subsucesión que converge a un punto en $K$.
+\end{tcolorbox}
+
+Demuestre que la función $f: \mathbb{R} \to \mathbb{R}$ es continua ssi $f$ tiene la propiedad del valor intermedio y mapea conjuntos compactos en conjuntos compactos.
+
+\begin{proof}
+	Nótese que es una prueba de ida y de vuelta.
+	\begin{enumerate}
+		\item[\fbox{$\to$}] A probar: $f$ tiene la propiedad del valor intermedio y mapea conjuntos compactos en conjuntos compactos. Por hipótesis sabemos que $f$ es continua, entonces por el teorema del valor intermedio de Bolzano $f$ debe tener la propiedad del valor intermedio.  $$\implies \exists \ c \in \mathbb{R} \ni f(c)=k, \quad k \in \mathbb{R}.$$
+		Por lo tanto, por la caracterización secuencial de compactos, nos garantiza que el subconjunto que mapea la función es compacto en un intervalo $[a,b]$ si cada sucesión en el subconjunto  tiene una subsucesión que converge a algún punto en el subconjunto (a mayor detalle en la prueba de regreso). Además,  por el teorema 1, la compacidad de conjuntos compactos se preserva bajo un mapeo continuo. 
+		
+		\item [\fbox{$\gets$}] Por contradicción. Sea asume que $f$ no es continua. Además, tenemos:
+		\begin{enumerate}
+			\item Una función mapea conjuntos compactos en conjuntos compactos. Además, nótese que por Heine-Borel, un conjunto compacto es cerrado y acotado. Entonces, tenemos una función $f$ que mapea $[a,b]\to [a,b]$.
+			\item  Considérese la caracterización secuencial del compacto. Entonces dígase que si $x_n\to x_0$. Pero ahora, nótese que nos dicen que $f$ tiene la propiedad del valor intermedio tal que: 
+			$$f(x_0)<c<f(x_n), \qquad \ c\in [a,b] \text{ y } \forall \ n.$$ 
+			Entonces, $f(z_n)=c$, en donde $z_n\in (x_0, x_n)$. Por lo que podemos asumir que, $z_n \to x_0$. Ahora, notamos que $x_0$ debe ser un \textbf{punto límite} del conjunto $z$, tal que $f(z)=c$; sin embargo, por el inciso \textbf{a} sabemos que $[a,b]$ es cerrado, pero $z$ no pertenece al conjunto $x_0$. ($\to\gets$) Entonces $f$ debe ser continua.
+		\end{enumerate}
+		
+	\end{enumerate}
+\end{proof}

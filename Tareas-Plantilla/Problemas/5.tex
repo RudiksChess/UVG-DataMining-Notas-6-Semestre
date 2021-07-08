@@ -1,0 +1,25 @@
+\section{Problema 5}
+
+\begin{tcolorbox}[colback=blue!15,colframe=blue!1!blue,title=Mapeo expansivo]
+	Sea $X$ un subconjunto no vacío de $\mathbb{R}$. Un mapeo $f: X \rightarrow X$ es expansivo si
+	$$
+	|f(x)-f(y)| \geq|x-y|, \quad \forall \ x, y \in X.$$
+\end{tcolorbox}
+
+Demuestre que si  $f:\mathbb{R} \rightarrow \mathbb{R}$ es continua y expansiva, entonces es un homeomorfismo con inversa Lipschitz.
+\begin{noter}{Literatura}
+	Para la realización de esta prueba, se consultaron las siguientes fuentes: 
+	\begin{enumerate}
+		\item \cite{georgiev2020multiple}. El teorema 1.9.6 se ofrece una de las generalizaciones y trata un caso específico de un teorema similar. 
+		\item \cite{carothers2000real}. Este libro profundiza en las definiciones de homeomorfismos desde su punto analítico y topológico.
+		\item \cite{brouwer1911beweis}. Teorema de la invarianza del dominio (deducción avanzada con temas de topología). 
+	\end{enumerate}
+\end{noter}
+\begin{proof}
+	A probar: $f$ es un homeomorfismo ([1] biyectiva, [2] continua, [3] inversa continua) que su inversa es Lipschitz. Por hipótesis tenemos un subconjunto $\mathbb{R}$ y un mapeo $f: \mathbb{R}\to\mathbb{R}$ continuo tal que: 
+	$$	|f(x)-f(y)| \geq|x-y|, \quad \forall \ x, y \in \mathbb{R}.$$
+	$\implies $ Nótese que la inyectividad se cumple trivialmente y además por hipótesis sabemos que es continua. Hace falta comprobar que posee la sobreyectividad para ser biyectiva; y finalmente, comprobar que su inversa también es continua. Estos dos factores se demuestran por el teorema de la invarianza del dominio de Brouwer (\textbf{literatura - inciso 3}). Por lo tanto, tenemos que $f$ es un homeomorfismo. $\implies f$ tiene inversa. Por lo tanto, podemos asumir, tomando como referencia el caso general de \textbf{literatura - inciso 1}: 
+	
+	$$|x-y|\geq |f^{-1}(x)-f^{-1}(y)|.$$
+	Que claramente es Lipschitz con $\alpha=1, A =1$. 
+\end{proof}

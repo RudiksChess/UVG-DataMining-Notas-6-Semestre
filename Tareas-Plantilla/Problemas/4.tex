@@ -1,0 +1,95 @@
+\section{Problema 4}
+
+Sea $f: \mathbb{R} \rightarrow(-1,1), f(x)=\frac{x}{1+|x|}$.
+
+\begin{noter}{Notación}
+		Nótese que la función se puede reescribir como: 
+		$$f(x)=\frac{x}{1+|x|}=\begin{cases}
+			\frac{x}{1-x} &,  -\infty<x<0  \\
+			\frac{x}{1+x}&,  0\leq x<\infty 
+		\end{cases}$$
+\end{noter}
+\begin{enumerate}
+	\item Pruebe que $f$ es un homeomorfismo.
+	\begin{proof}
+		Considérese la definición de homeomorfismo. 
+		\begin{enumerate}
+			\item \textbf{Comprobar $f$ es continua}. Tómese como referencia la definición de continuidad. Tenemos 2 casos: 
+			\begin{enumerate}
+				\item $f(x)=\frac{x}{1+x}$.  Sea $x_0\in [0,\infty)$. Entonces, si $\forall \ \varepsilon > 0 \ \exists \ \delta:=\min\left\{0,2\varepsilon\right\} >0$, tal que: 
+				$$|x-x_0|< \delta.$$
+				\begin{align*}
+					\implies |f(x)-f(x_0)|=\left|\frac{x}{1+x}-\frac{x_0}{x_0}\right|=\left|\frac{x(1+x_0)-x_0(1+x)}{(1+x)(1+x_0)}\right|\\=\left|\frac{x+xx_0-x_0-x_0x}{(1+x)(1+x_0)}\right|
+					= \left|\frac{x-x_0}{(1+x)(1+x_0)}\right|=\\ =\frac{1}{\left|(1+x)(1+x')\right|}\cdot \left|x-x'\right|\leq \frac{1}{2}\cdot \left|x-x'\right|. 
+				\end{align*} 
+			Entonces, ahora tenemos 
+			$$\frac{1}{2}\cdot \left|x-x_0\right|< \epsilon \implies \left|x-x_0\right|< 2\epsilon.$$
+			Por lo cual, seleccionamos $\delta:=\min\left\{0,2\varepsilon\right\}.$ 
+				\item $f(x)=\frac{x}{1-x}$.  Mismo argumento que el anterior con el signo e intervalo cambiado. 
+			\end{enumerate}
+		Por lo tanto, $f$ es continua.
+			\item \textbf{Comprobar $f$ es biyectiva}. Es decir, primero probaremos que es inyectiva y luego sobreyectiva. 
+			\begin{enumerate}
+				\item Inyectiva. Tenemos dos casos: 
+				\begin{enumerate}
+					\item $f(x)=\frac{x}{1-x}$. Entonces, se proponen dos funciones: $$f(x_1)=\frac{x_1}{1-x_1} \quad y \quad f(x_2)=\frac{x_2}{1-x_2}.$$
+					\begin{align*}
+						f(x_1)= f(x_2)\implies \frac{x_1}{1-x_1} = \frac{x_2}{1-x_2}\implies x_1(1-x_2)=x_2(1-x_1)\implies\\
+						\implies x_1-x_1x_2=x_2-x_2x_1 \implies x_1=x_2. \ \therefore \text{ Es inyectiva.}
+					\end{align*}
+					\item $f(x)=\frac{x}{1+x}$. Mismo argumento que el inciso anterior, únicamente el signo cambiado. 
+				\end{enumerate}
+				$\therefore f$ es inyectiva.
+				\item Sobreyectiva. Tenemos dos casos: 
+				\begin{enumerate}
+					\item $f(x)=\frac{x}{1-x}$. Entonces, debemos despejar para $x$. Se propone: $$y=\frac{x}{1-x}.$$
+					\begin{align*}
+						\implies y=\frac{x}{1-x} \implies y(1-x)= x\implies y -yx = x \implies\\ y = xy+x \implies y= x(y+1)\implies x= \frac{y}{y+1}. \therefore \ \text{ Es sobreyectiva.}
+					\end{align*}
+					\item $f(x)=\frac{x}{1+x}$. Mismo argumento que el inciso anterior, únicamente el signo cambiado. 
+				\end{enumerate}
+				$\therefore f$ es sobreyectiva.
+			\end{enumerate}
+			$\therefore  \ $Una función inyectiva y sobreyectiva es biyectiva. 
+			\item  \textbf{Comprobar $f^{-1}$ es biyectiva}. Nuevamente, tenemos 2 casos: 
+			\begin{enumerate}
+				\item $f(x)= \frac{x}{1-x}$. En donde $f(x)^{-1}= \frac{x}{x+1}$. Sea $x_0\in (-\infty,0)$. Entonces, $\forall \ \epsilon >0 \ \exists \ \delta := \min\left\{2\varepsilon, 0\right\}>0$, tal que: 
+				$$|x-x_0|<\delta.$$
+				\begin{align*}
+					\implies |f(x)-f(x_0)| = \left|\frac{x}{x+1}-\frac{x_0}{x_0+1}\right| = \left|\frac{x(x_0+1)-x_0(x+1)}{(x+1)(x_0+1)}\right|=\\
+					= \left|\frac{xx_0+x-x_0x-x_0}{(x+1)(x_0+1)}\right|= \left|\frac{x-x_0}{(x+1)(x_0+1)}\right|= \frac{1}{|(x+1)(x_0+1)|}\cdot |x-x_0|
+				\end{align*} 
+			Entonces: 
+			$$ \frac{1}{|(x+1)(x_0+1)|}\cdot |x-x_0|\leq \frac{1}{2}|x-x_0|<\varepsilon.$$
+			$$\implies |x-x_0|<2\varepsilon.$$
+				Por lo cual, seleccionamos arbitrariamente $\delta := \min\left\{2\varepsilon, 0\right\}$.
+				\item $f(x)= \frac{x}{1+x}$. Mismo argumento del inciso anterior con los signos cambiados. 
+			\end{enumerate}
+			Por lo tanto, la inversa de $f$ es continua.
+		\end{enumerate}
+		
+		$\therefore \ f$ es un homeomorfismo.
+	\end{proof}
+	\item  Demuestre que $f$ es Lipschitz.
+		\begin{proof}
+		Tenemos dos casos:
+		\begin{enumerate}
+			\item $f(x)=\frac{x}{1+x}$. Debemos probar que $\exists \ A>0$: 
+			$$|f(x)-f(x')|\leq A|x-x'|, \forall \ x,x'\in I.$$
+			\begin{align*}
+				\implies \left|\frac{x}{1+x}-\frac{x'}{1+x'}\right|=\left|\frac{x(1+x')-x'(1+x)}{(1+x)(1+x')}\right|=\left|\frac{x+xx'-x'-x'x}{(1+x)(1+x')}\right|=\\
+				= \left|\frac{x-x'}{(1+x)(1+x')}\right|= \frac{1}{\left|(1+x)(1+x')\right|}\cdot \left|x-x'\right|\leq \frac{1}{2}\cdot \left|x-x'\right|. 
+			\end{align*} 
+			\item $f(x)=\frac{x}{1-x}$. Mismo argumento que el anterior con el signo cambiado. 
+		\end{enumerate}
+	$\therefore \ f(x)$ es Lipschitz. 
+	\end{proof}
+\begin{tcolorbox}[colback=gray!15,colframe=gray!1!gray,title=Teorema 1 de Lipschitz (demostrado en clase)]
+	Si $f: I \to \mathbb{R}$ es Lipschitz de orden $\alpha$. $\implies f$ es continuamente uniforme.  
+\end{tcolorbox}
+
+	\item  Deduzca que $f$ es uniformemente continua.
+		\begin{proof}
+		Por el teorema 1 de Lipschitz (demostrado en clase), para el caso particular en donde $\alpha=1$, entonces podemos concluir que $f$ es uniformemente continua.
+	\end{proof}
+\end{enumerate}
