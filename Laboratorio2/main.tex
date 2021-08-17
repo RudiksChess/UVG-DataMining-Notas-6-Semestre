@@ -1,0 +1,93 @@
+\input{Configuraciones/paquetes}
+
+%--------------------------
+
+\begin{document}
+\input{Configuraciones/nombres}
+%--------------------------
+
+\begin{enumerate}
+	\item ¿Qué restaurante vende más? Colocar el valor en monto (\$).
+	\begin{sol}
+		Según la métrica propuesta (sumatoria del precio del producto por la cantidad), como se observa en \ref{fig: 1}, el restaurante que tiene más ventas es el segundo con \$683,865.90 en ventas; en comparación al primer restaurante, que tiene ventas de \$490,489.42.
+			\begin{figure}[H]
+			\centering
+			$\begin{array}{cc}
+				\includegraphics[scale=0.4]{Images/1}& \includegraphics[scale=0.4]{Images/1.1}\\
+				\text{Restaurante 1} & \text{Restaurante 2}
+			\end{array}$
+			\caption{Ventas}
+			\label{fig: 1}
+		\end{figure}
+
+	\end{sol}
+	\item ¿Qué unidades de venta tiene cada producto?
+		\begin{sol}
+			Para visualizar las unidades de venta de cada producto se seleccionaron los 20 productos con mayores unidades de venta y se optó por gráficos de barras (véase \ref{fig: 2}, \ref{fig: 3}) , para una mejor percepción de los datos. Nótese que los primeros dos productos son iguales en ambos restaurantes. 
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.3]{Images/2}
+			\caption{Unidades de venta del restaurante 1}
+			\label{fig: 2}
+		\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.3]{Images/2.1}
+		\caption{Unidades de venta del restaurante 2}
+		\label{fig: 3}
+	\end{figure}
+	\end{sol}
+	\item Haga un análisis de los precios de los productos. (Utilice las medidas de tendencia central y desviación para contestar esta pregunta) Utilice promedio, desviación, valores máximos y mínimos y el valor de la mediana para esto.
+		\begin{sol}
+		Los resultados del restaurante 1 (véase \ref{fig: 4}) y del restaurante 2 (véase \ref{fig: 5}) muestran lo siguiente: 
+		\begin{enumerate}
+			\item La mayor parte de la dispersión de los precios de los productos del primer restaurante se encuentran en 8.79$\pm$3.67, mientras que los del segundo restaurante en 8.08$\pm$3.07.
+			\item Nótese que en ambos restaurantes la mediana es mayor a la media; esto significa que los datos se encuentran sesgados hacia la izquierda moderadamente (ya que las medianas no sobrepasan por 1 punto a la media). Una interpretación directa sería que existen varios productos que tienen precios de los productos cercanos a la media; pero muchos que sobrepasan la media y pocos que son menores a la media. 
+			\item Los máximos y mínimos no tienen una utilidad evidente con la data proporcionada; simplemente representan datos atípicos que no afectan al conjunto en general. 
+		\end{enumerate}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{Images/3}
+	\caption{Análisis del restaurante 1}
+	\label{fig: 4}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{Images/3.1}
+	\caption{Análisis del restaurante 2}
+	\label{fig: 5}
+\end{figure}
+	\end{sol}
+	\item ¿Cuál es el promedio mensual de venta durante el 2019?
+		\begin{sol}
+		Los datos obtenidos se encuentran en \ref{fig: 6} y \ref{fig: 7}. El requerimiento es encontrar la media (promedio) de los restaurantes durante 2019. Nótese que el promedio del restaurante 1 es \$ 14,513.65 y del restaurante 2 es \$6,675.571. Sin embargo, en el mes de agosto las ventas se desplomaron (por alguna causa atípica, no determinada) por lo cual los datos evidentemente están sesgados y la media no podría ser una variante determinante al momento de un análisis más profundo.  
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{Images/4}
+	\caption{Unidades de venta del restaurante 1}
+	\label{fig: 6}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{Images/4.1}
+	\caption{Unidades de venta del restaurante 2}
+	\label{fig: 7}
+\end{figure}
+	\end{sol}
+	
+	\item Elabore un tablero de información con la diferencia de ambas.
+	
+		\begin{sol}
+		El tablero de Power BI consiste en los incisos anteriormente descritos.
+		\begin{center}
+			\includegraphics[scale=0.35]{Images/5}
+		\end{center}
+	\end{sol}
+\end{enumerate}
+
+
+%---------------------------
+%\bibliographystyle{apa}
+%\bibliography{referencias.bib}
+
+\end{document}
