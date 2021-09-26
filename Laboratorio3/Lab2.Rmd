@@ -1,0 +1,165 @@
+---
+title: "Laboratorio 3"
+author: "Rudik R. Rompich - 1987"
+output:
+  pdf_document:
+    keep_tex: yes
+---
+
+# Colocar el directorio de datos 
+
+```{r}
+getwd()
+```
+
+# Cargar datos
+
+```{r}
+df <- read.csv("student-mat.csv",sep =";", stringsAsFactors =  T)
+head(df)
+```
+# Un resumen de los datos 
+
+```{r}
+summary(df)
+```
+# Estructura de las columnas
+
+```{r}
+str(df)
+```
+
+# Valores faltantes 
+
+```{r}
+any(is.na(df))
+```
+
+# Análisis de correlación 
+
+```{r}
+library(ggplot2)
+library(ggthemes)
+library(dplyr)
+library(corrplot)
+```
+
+# Evaluar que columnas son verdaderas 
+
+```{r}
+vector_num <- sapply(df,is.numeric)
+vector_num
+```
+# Vector de valores lógicos para filtrar numéricos 
+
+```{r}
+cor_df <- cor(df[,vector_num])
+cor_df
+```
+# Graficar 
+
+```{r}
+corrplot(cor_df,method ="color")
+```
+
+# Visualizar con un histograma la variable G3
+
+
+```{r}
+ggplot(df, aes(x=G3))+geom_histogram()
+```
+# Proceso de partición de los datos 
+```{r}
+library(caTools)
+```
+
+# Mismos parámetros 
+
+```{r}
+set.seed(101)
+```
+
+# Partición de los datos 
+
+```{r}
+muestreo <- sample.split(df$G3, SplitRatio = 0.7)
+head(muestreo)
+```
+
+# Set de entrenamiento 
+
+```{r}
+entrenamiento <- subset(df,muestreo==T)
+prueba <- subset(df, muestreo == F)
+```
+
+# Modelo de regresión lineal 
+
+```{r}
+modelo <- lm(G3 ~., entrenamiento)
+summary(modelo)
+```
+# Hacer predicciones 
+
+```{r}
+predicciones <- predict(modelo, prueba)
+cbind(predicciones)
+```
+# Resultados 
+
+```{r}
+resultados <- cbind(prueba, predicciones)
+resultados
+class(resultados)
+```
+# Gráfico 
+
+```{r}
+ggplot(resultados, aes(x=predicciones))+geom_histogram()
+```
+
+# Construir una función que convierta valores negativos a cero 
+
+
+```{r}
+convertir_cero <- function(x){
+  if(x<0){
+    return(0)
+    }
+  else{
+    return(x)
+  }
+}
+
+```
+
+# Convertir valores a cero con función 
+
+```{r}
+resultados$predicciones <- sapply(resultados$predicciones, convertir_cero)
+```
+
+# Correr la evaluación con RMSE 
+
+```{r}
+mse <- mean((resultados$G3 - resultados$predicciones)^2)
+mse 
+```
+
+# Raíz cuadrada del error medio 
+
+```{r}
+rmse <- sqrt(mse)
+rmse
+```
+
+# Usar el modelo que construimos 
+
+```{r}
+uso <- read.csv("student-mat - uso.csv")
+predicciones_uso <- predict(modelo, uso)
+resultados_uso <- cbind(uso, predicciones_uso)
+resultados_uso
+```
+
+

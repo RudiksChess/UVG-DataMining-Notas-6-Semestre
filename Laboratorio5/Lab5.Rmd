@@ -1,0 +1,133 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Estructura de los datos
+```{r}
+library(ISLR)
+library(rpart)
+library(caret)
+library(dplyr)
+library(MLmetrics)
+library(ranger)
+```
+
+# Veo la estructura de datos 
+
+```{r}
+head(College)
+```
+
+# Asignar el set de datos college a una variable 
+
+```{r}
+df <- College
+str(df)
+```
+
+# Busco las variables relevantes 
+
+```{r}
+variables <- ranger(Private ~., data = df, importance = "impurity")
+variables
+```
+
+# Variables según su importancia 
+
+```{r}
+sort(importance(variables))
+```
+
+# Análisis exploratorio 
+
+```{r}
+library(ggplot2)
+```
+
+# Veo las variables 
+```{r}
+ggplot(df,aes(x=Room.Board,y=Grad.Rate)) +geom_point(aes(color=Private))
+```
+# Histograma de variable F Undergrad vs privado/publica
+
+
+```{r}
+ggplot(df,aes(x=F.Undergrad))+geom_histogram(aes(fill=Private), bins=10)
+```
+# Histograma de variable F Undergrad vs privado/publica
+
+```{r}
+ggplot(df,aes(x=Grad.Rate))+geom_histogram(aes(fill=Private), bins=10)
+```
+# Grafico para validar docentes con doctorado vs privado/publica 
+
+```{r}
+ggplot(df, aes(x=PhD))+ geom_histogram(aes(fill=Private), bins=10)
+```
+
+# Cargo libreria para hacer particion de entrenamiento y prueba 
+
+```{r}
+library(caTools)
+muestra <- sample.split(df$Private, SplitRatio =0.8)
+```
+
+# Hacer el set de entrenamiento 
+
+```{r}
+entrenamiento <- subset(df, muestra == T)
+prueba <- subset(df,muestra=F)
+```
+
+# Árbol de decisión 
+
+```{r}
+arbol <- rpart(Private ~., data=entrenamiento, method="class", control = rpart.control(mainsplit=10, minbucket = 5))
+```
+
+# Paquete para visualizar arbol 
+
+```{r}
+library(rpart.plot)
+prp(arbol)
+```
+# Hacer las predicciones
+
+```{r}
+arbol.predicciones <- predict(arbol, prueba)
+arbol.predicciones
+```
+
+# Función para punto de corte 
+
+```{r}
+corte <- function(x){
+  if(x>= 0.5){
+    return("Yes")
+  } else {
+    return("No")
+  }
+}
+```
+
+# Convierto predicciones en dataframe
+```{r}
+arbol.predicciones <- as.data.frame(arbol.predicciones)
+```
+
+# Corro función de corte 
+
+```{r}
+arbol.predicciones$Private <- sapply(arbol.predicciones$Yes, corte)
+```
+
+# Hago la matriz de confusión 
+
+```{r}
+confusionMatrix(factor(arbol.predicciones$Private), prueba$Private)
+```
+
+
+
+

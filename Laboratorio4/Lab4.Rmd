@@ -1,0 +1,160 @@
+---
+title: "Lab"
+output: 
+  pdf_document:
+    keep_tex: true
+    number_sections: true
+header-includes: \usepackage{float}
+---
+
+\textbf{Instrucciones: } La tienda Joyas Exclusivas S.A. ,ubicada en Guatemala, compra diamantes en el extranjero para abastecer sus distintas sucursales. Normalmente lo hacen en unas ferias en donde distintos proveedores ofrecen sus tiendas. Han tenido el inconveniente que no saben con exactitud el mejor precio al cual deberían de comprar los diamantes. Para ello, lo han contratado a usted para poder desarrollar un modelo que pueda predecir los precios de los diamantes y usarlo para conocer mejor el mercado. La libreria de datos que deben cargar es GGPLOT2, y el set de datos está dentro de esa librería y se llama "diamonds".
+
+```{r}
+library(ggplot2)
+library(kableExtra)
+library(corrplot)
+```
+
+# Haga un análisis inicial de los datos usando las funciones apropiadas para el mismo. Haga un screenshot del output en su informe.
+
+```{r}
+resumen <- summary(diamonds)
+cabecera <- head(diamonds)
+```
+
+```{r}
+kbl(cabecera, booktabs = T) %>% kable_styling(latex_options = 
+                                                c("striped", "hold_position"))
+kbl(resumen, booktabs = T) %>% kable_styling(latex_options = 
+                                               c("striped","scale_down", "hold_position"))
+```
+```{r}
+str(diamonds)
+any(is.na(diamonds))
+```
+
+# Haga un diagrama de caja utilizando la siguiente fórmula e interprete los resultados:
+
+
+## Precio vrs. corte
+
+```{r, echo=FALSE, out.width="75%", fig.cap="Precio vrs. corte.", fig.align="center",fig.pos="H"}
+ggplot(diamonds, aes(x=price, y = cut)) + geom_boxplot(fill = "red")
+```
+
+## Precio vrs. peso
+```{r, echo=FALSE, out.width="75%", fig.cap="Precio vrs. peso.", fig.align="center",fig.pos="H"}
+ggplot(diamonds, aes(x=price, y = carat)) + geom_boxplot(fill = "yellow")
+```
+
+## Precio vrs. claridad
+
+```{r, echo=FALSE, out.width="75%", fig.cap="Precio vrs. claridad.", fig.align="center",fig.pos="H"}
+ggplot(diamonds, aes(x=price, y = clarity)) + geom_boxplot(fill = "blue")
+```
+
+*Un diagrama de caja es para analizar la distribución de los datos según algún parámetro: https://www.pgconocimiento.com/diagrama-boxplot/
+
+# Haga una matriz de correlación y analice los resultados. ¿Hay alguna variable que esté altamente relacionada?
+```{r, out.width="75%", fig.cap="Matriz de correlación", fig.align="center",fig.pos="H"}
+#Evaluar que columnas son numéricas
+vect_num <- sapply(diamonds, is.numeric)
+#Vector de valores lógicos para filtrar numéricos
+cor_diamonds <- cor(diamonds[,vect_num])
+#Graficar
+corrplot(cor_diamonds,method = "number", sig.level=0.05)
+help(corrplot)
+```
+Las relaciones significativas son las siguientes: 
+
+\begin{enumerate}
+  \item carat con price,x,y,z. 
+  \item price con carat,x,y,z.
+\end{enumerate}
+# Haga la partición de datos en entrenamiento y prueba.
+```{r}
+library(caTools)
+```
+
+```{r}
+# Fijamos la aleatoriedad 
+set.seed(69)
+#Partición de los datos
+muestreo <- sample.split(diamonds$price, SplitRatio = 0.7)
+# Los subconjuntos de datos entrenamiento y prueba
+entrenamiento <- subset(diamonds, muestreo == T)
+prueba <- subset(diamonds, muestreo == F)
+```
+
+
+# Entrene el modelo de regresión lineal usando todas las variables como predictoras.
+```{r}
+modelo <- lm(price ~ .,entrenamiento)
+summary(modelo)
+```
+```{r}
+predicciones <- predict(modelo, prueba)
+resultados <- cbind(prueba, predicciones)
+kbl(head(resultados), booktabs = T) %>% kable_styling(latex_options = 
+                                               c("striped","scale_down", "hold_position"))
+```
+
+
+
+# Haga una función que diga si el resultado es negativo, debe colocar el valor mínimo de precio dentro de la base de datos.
+
+```{r}
+convertir_cero <- function(x){
+  if(x<0){
+    return (min(diamonds$price))
+  } else{
+    return (x)
+  }
+}
+```
+
+
+# Corra la función con las predicciones.
+
+```{r}
+resultados$predicciones <- sapply(resultados$predicciones, convertir_cero)
+
+kbl(head(resultados), booktabs = T) %>% kable_styling(latex_options = 
+                                               c("striped","scale_down", "hold_position"))
+```
+
+
+# ¿Cuál es el MAPE del modelo? ¿Cuál es el RMSE del modelo? ¿Está haciendo un buen trabajo el modelo?
+
+```{r}
+MAPE <- 100/nrow(resultados)* sum((resultados$price-resultados$predicciones)/resultados$price)
+MAPE
+```
+
+```{r}
+MSE <- mean((resultados$price - resultados$predicciones)^2)
+RMSE <- sqrt(MSE)
+RMSE
+```
+
+Los resultados encontrados en el MAPE y indican un porcentaje negativo de aproximadamente -6\% comparado entre los precios reales y las prediciones; por otra parte el RMSE indica una pérdida muy pequeña. Por lo tanto, el modelo está haciendo un buen trabajo. 
+
+
+# Utilice el modelo para hacer las proyecciones utilizando el archivo de "diamantes - uso.csv".
+```{r}
+
+```
+
+
+```{r}
+getwd()
+uso <- read.csv("diamantes - uso.csv", sep = ";")
+predicciones_uso <- predict(modelo, uso)
+resultados_uso <- cbind(uso, predicciones_uso)
+resultados_uso$predicciones_uso <- sapply(resultados_uso$predicciones_uso, convertir_cero)
+kbl(head(resultados_uso, 30), booktabs = T) %>% kable_styling(latex_options = 
+                                               c("striped","scale_down", "hold_position"))
+```
+
+
+

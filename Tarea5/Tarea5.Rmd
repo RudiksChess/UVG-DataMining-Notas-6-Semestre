@@ -1,0 +1,93 @@
+---
+title: "Data Manipulation in R"
+author: "Rudik Roberto Rompich - 19857"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+---
+# Ejercicios
+```{r}
+library(lubridate)
+library(dplyr)
+```
+
+
+## Coloque el directorio de datos
+
+```{r}
+getwd()
+```
+
+# Cargue el archivo de datos que se llama supermarket sales
+
+```{r}
+db<-read.csv("supermarket_sales - Sheet1.csv")
+db <- data.frame(db)
+```
+
+# Haga una vista previa de los datos
+
+```{r}
+head(db)
+```
+
+# ¿Cuál es el tipo de datos que esta viendo?
+
+```{r}
+sapply(db, typeof)
+# sapply(db, class)
+```
+
+# Cambie el tipo de Date a formato de fecha (use el paquete lubridate la formula dmy)
+
+```{r}
+db <- db %>%
+  mutate_at(vars('Date'), lubridate::mdy)
+head(db)
+```
+
+# ¿Cuál es el promedio de los precios dentro de la base de datos?
+
+```{r}
+db %>% summarise(mean(Unit.price))
+```
+# Cual es el producto que mas se vende? Use la libreria DPLYR para esto
+
+```{r} 
+db %>% group_by(Product.line) %>% summarise(cantidad=sum(Quantity)) %>% arrange(desc(cantidad))
+```
+
+# Cual es el producto que mas se vende en valor monetario
+```{r} 
+db %>% group_by(Product.line) %>% summarise(cantidad = sum(cogs)) %>% arrange(desc(cantidad))
+```
+
+# Haga un dataframe que contenga el tipo de cliente "normal"
+```{r}
+db %>% filter(Customer.type=='Normal')
+```
+# Haga un dataframe que contenga ventas con cantidades por encima de 5 unidades
+```{r}
+db %>% filter(Quantity>5)
+```
+
+# Haga un dataframe que contenga ventas con cantidades encima de 4 unidades y precio unitario debajo de 50 dolares
+```{r}
+db %>% filter(Quantity>4 & Unit.price<50)
+```
+
+# Haga una funcion que determine un descuento del 25% al precio 
+```{r}
+descuento_25 <- function(precio){
+  descuento <- precio*0.75
+  return (descuento)
+}
+```
+
+# Precio descontado
+
+```{r}
+db %>% mutate(precio_descuento = descuento_25(cogs))
+```
+
